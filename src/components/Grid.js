@@ -6,9 +6,10 @@ class Grid extends Component {
     render() {
         return (
             <GridW>
-              <Sun >
-              <div className="half"></div>
-              </Sun >
+              <Sky>
+              <h1></h1>
+              </Sky>
+              <Sea />
 <div class="grid-wrapper">
   <div class="grid">
     <div class="vertical">
@@ -55,7 +56,7 @@ class Grid extends Component {
 }
 
 export const Sun = styled.div`
-background: radial-gradient(red 50%, orange 80%, yellow 90%);
+background: radial-gradient(yellow 10%, orange 40%, red 70%);
 height: 10%;
 width: 100px;
 border-radius: 50%;
@@ -69,7 +70,47 @@ z-index: 0;
   height: 50%;
   top: 50px;
   position: relative;
+ 
 }
+`;
+
+export const Sea = styled.div`
+background: linear-gradient(purple, blue, darkblue);
+height: 70vh;
+width: 100%;
+top: 0vh;
+left: 0;
+position: relative;
+z-index: 1;
+opacity: 0.4;
+`;
+
+export const Sky = styled.div`
+background: linear-gradient(black 10%, darkblue 70%, purple);
+height: 37.8vh;
+width: 100%;
+top: 0vh;
+left: 0;
+position: relative;
+z-index: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+
+h1 {
+  font-family: 'Do Hyeon', sans-serif;
+  margin-top: 7rem;
+  color: white;
+  font-size: 8rem;
+  opacity: 1;
+  text-shadow: 0.5rem 0.5rem black;
+  opacity: 0.9;
+  letter-spacing: 0.7rem;
+}
+
+
+}
+
 
 `;
 
@@ -81,6 +122,7 @@ export const GridW = styled.div`
   left:0;
   bottom:0px;
   perspective:150px;
+  z-index: 0;
 }
 
 .grid {
@@ -105,7 +147,7 @@ export const GridW = styled.div`
   top:0;
   left:0;
   bottom:0;
-  width:5px;
+  width:1px;
   background: linear-gradient(orange 40%, red 70%);
   
   &:nth-child(1) {
@@ -146,7 +188,7 @@ export const GridW = styled.div`
   top:0;
   left:0;
   right:0;
-  height:5px;
+  height:2px;
   z-index:2;
   
   

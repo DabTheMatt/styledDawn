@@ -11,6 +11,7 @@ body {
   background: #09111e;
   background: linear-gradient(top,#253B5E,#09111e);
   box-shadow: inset 0px 0px 150px rgba(0,0,0,0.65);
+  overflow: hidden;
 }
 
 .grid-wrapper {
@@ -46,6 +47,7 @@ body {
   bottom:0;
   width:@gridLine;
   background: linear-gradient(top, rgba(255,255,255,0), rgba(87, 193, 232, 0.35));
+  
   &:nth-child(1) {
     left:10%;
   }

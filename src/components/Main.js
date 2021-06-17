@@ -8,6 +8,7 @@ class Main extends Component {
   render() {
     return (
       <MainWrapper>
+        
         <Grid />
       </MainWrapper>
     );
@@ -24,6 +25,7 @@ border-radius: 50%;
 box-shadow: 0px 0px 175px #dc2f02;
 position: relative;
 z-index: 0;
+
 
 .sea {
     content: "";

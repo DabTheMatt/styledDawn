@@ -4,12 +4,17 @@ import styled from 'styled-components';
 
 class Grid extends Component {
     render() {
-        return (
+        return (<div>
+
             <GridW>
               <Sky>
-              <h1></h1>
+                
+              <h1>Chrome Sky</h1>
+              <h2>between the lines</h2>
+              
               </Sky>
               <Sea />
+              
 <div class="grid-wrapper">
   <div class="grid">
     <div class="vertical">
@@ -50,6 +55,8 @@ class Grid extends Component {
   </div>
 </div>
 </GridW>
+<h3>Enter</h3>
+        </div>
             
         );
     }
@@ -81,7 +88,7 @@ width: 100%;
 top: 0vh;
 left: 0;
 position: relative;
-z-index: 1;
+z-index: 5;
 opacity: 0.4;
 `;
 
@@ -96,18 +103,43 @@ z-index: 0;
 display: flex;
 align-items: center;
 justify-content: center;
+flex-direction: column;
 
 h1 {
   font-family: 'Do Hyeon', sans-serif;
   margin-top: 7rem;
-  color: white;
-  font-size: 8rem;
-  opacity: 1;
-  text-shadow: 0.5rem 0.5rem black;
+  background: linear-gradient(grey, white, purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px solid black;
+  font-size: 10rem;
+  
   opacity: 0.9;
   letter-spacing: 0.7rem;
+  
 }
 
+h2 {
+  font-family: 'Do Hyeon', sans-serif;
+  background: linear-gradient(grey, white, purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px solid black;
+  font-size: 3rem;
+  margin-top: -10rem;
+  opacity: 0.9;
+  letter-spacing: 0.7rem;
+  
+}
+
+h3 {
+  position: absolute;
+  top: -300px;
+  z-index: 17;
+  
+  font-size: 7rem;
+  color: white;
+}
 
 }
 
@@ -122,7 +154,7 @@ export const GridW = styled.div`
   left:0;
   bottom:0px;
   perspective:150px;
-  z-index: 0;
+  z-index: 1;
 }
 
 .grid {
@@ -189,7 +221,7 @@ export const GridW = styled.div`
   left:0;
   right:0;
   height:2px;
-  z-index:2;
+  z-index:0;
   
   
   @keyframes moove {

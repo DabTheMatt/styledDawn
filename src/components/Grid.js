@@ -9,7 +9,24 @@ class Grid extends Component {
             <GridW>
               <Sky>
                 
-              <h1>Chrome Sky</h1>
+              <h1 className="top">C
+                <span className="s1">h</span>
+              <span className="s2">r</span>
+              <span className="s3">ome</span>
+               
+              <spna className="s2">&nbsp;S</spna>
+              <span className="s1">k</span>
+              y</h1>
+              <h1>
+                C
+                <span className="s1">h</span>
+              <span className="s2">r</span>
+              <span className="s3">ome</span>
+               
+              <spna className="s2">&nbsp;S</spna>
+              <span className="s1">k</span>
+              y
+              </h1>
               <h2>between the lines</h2>
               
               </Sky>
@@ -108,25 +125,51 @@ flex-direction: column;
 h1 {
   font-family: 'Do Hyeon', sans-serif;
   margin-top: 7rem;
-  background: linear-gradient(grey, white, purple);
+  background:  radial-gradient(red 10%, orange 70%, yellow);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 2px solid black;
   font-size: 10rem;
-  
   opacity: 0.9;
   letter-spacing: 0.7rem;
+  position: absolute;
+  text-transform: uppercase;
+}
+
+/*h1 .s1 {
+  font-size: 9rem;
+}
+
+h1 .s2 {
+  font-size: 8.5rem;
+}
+h1 .s3 {
+  font-size: 8rem;
+  margin-bottom: 1rem;
+}*/
+
+.top {
+  font-family: 'Do Hyeon', sans-serif;
+  margin-top: 7rem;
+  background: linear-gradient(darkgrey, black);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px solid white;
+  font-size: 10.2rem;
+  opacity: 1;
+  letter-spacing: 0.7rem;
+  position: absolute;
   
 }
 
 h2 {
   font-family: 'Do Hyeon', sans-serif;
-  background: linear-gradient(grey, white, purple);
+  background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 2px solid black;
   font-size: 3rem;
-  margin-top: -10rem;
+  margin-top: 14rem;
   opacity: 0.9;
   letter-spacing: 0.7rem;
   

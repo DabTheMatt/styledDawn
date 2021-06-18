@@ -18,17 +18,17 @@ class VideoBcg extends Component {
             <VideoWrapper>
                 <div className="videoBcg">
                     <div className="videoFwr">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/xSM_nz6gKOI?" title="YouTube video player" frameBorder="0" allowFullScreen></iframe>
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aDF97Ebilps" title="YouTube video player" frameBorder="0" allowFullScreen></iframe>
                     </div>
                 </div>
 
               
                 <div id="vidtopCnt">
 <div class="vidInfo">
-	  <h1>Bullet counter</h1>
-      <h2>Shots fired: {this.state.shots}</h2>
-	  <p>You can use this counter to check magazine capacity.</p>
-     <button onClick={this.handleShot}>Gun shot</button>
+	  <h1>F-word counter</h1>
+      <h2>F-words: {this.state.shots}</h2>
+	  <p>You can use this counter to count.</p>
+     <button onClick={this.handleShot}>F-word</button>
 	 </div></div>
   
             </VideoWrapper>
@@ -54,10 +54,10 @@ display: flex;
 
 .videoFwr {
     position: absolute;
-    top: -20vh;
+    top: -10vh;
     left:0;
     width: 100%;
-    height: 100%;
+    height: 80%;
     
     z-index: 1;
     padding: 2rem;
@@ -97,14 +97,20 @@ display: flex;
          align-self: center;
          background: rgba(255, 0, 0, 0.5);
          border: none;
-         font-size: 1rem;
+         font-size: 0.7rem;
          text-transform: uppercase;
          border-radius: 50%;
          height: 5rem;
          width: 5rem;
          color: white;
          font-weight: bold;
-         margin-top: 1rem;;
+         margin-top: 1rem;
+        
+    }
+
+    button:hover {
+        cursor: pointer;
+        
     }
 }
 

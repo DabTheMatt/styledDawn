@@ -99,8 +99,7 @@ class VideoBcg extends Component {
     </form>
     : <div className="counter">
 	  <h1>{this.state.nameInput} counter</h1>
-      <h2>
-      number of appearances:</h2> <p id="apperances">{this.state.shots}</p>
+      <h2>number of appearances:</h2> <p id="apperances">{this.state.shots}</p>
 	  <p>If the action happens too fast remember that you can use the clip's settings to slow it down.</p>
      <button id="count" onClick={this.handleShot}>+1</button>
      <button id="count2" onClick={this.handleShot2}>-1 (my mistake)</button>
@@ -178,7 +177,7 @@ label {
     height: 100vh;
     margin-bottom: 5rem;
     display: flex;
-    align-items: flex-end;
+    align-items: centeer;
     justify-content: flex-start;
     flex-direction: column;
 
@@ -192,6 +191,7 @@ label {
         text-transform: uppercase;
         align-self: flex-end;
     }
+    
     button {
         padding: 1rem;
          align-self: center;
@@ -240,6 +240,17 @@ label {
     line-height: 1rem;
     width: 70%;
 }
+h1 {
+        text-align: center;
+        align-self: center;
+    }
+h2 {
+        text-align: center;
+    }
+    p {
+        text-align: center;
+        align-self: center;
+    }
 }
 #count {
     padding: 0.5rem;

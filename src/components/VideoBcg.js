@@ -10,7 +10,9 @@ class VideoBcg extends Component {
         nameInput: "",
         adressInput: "",
         formVisibility: true,
-        shortName: ""
+        shortName: "",
+        warning: "",
+        warningVis: "hidden"
     }
 
     handleShot = () => {
@@ -20,9 +22,15 @@ class VideoBcg extends Component {
     }
 
     handleShot2 = () => {
-        this.setState({
-            shots: this.state.shots - 1
-        })
+
+        if (this.state.shots === 0 ) {
+            return;
+        } else {
+
+            this.setState({
+                shots: this.state.shots - 1
+            })
+        }
     }
 
     handleChange = (e) => {
@@ -41,13 +49,16 @@ class VideoBcg extends Component {
     }
 
     handleSend = (e) => {
-        e.preventDefault();
+       
+            e.preventDefault();
+
+           
         let adress = this.state.adressInput.split("=");
         this.setState({
             adress: adress[1],
             formVisibility: false
         })
-        console.log(adress, this.state.adress);
+    
     }
 
     render() {
@@ -85,6 +96,7 @@ class VideoBcg extends Component {
         placeholder="gun shots, f-words, kisses"
         />
         <button id="makeCounter">Make {this.state.nameInput} counter</button>
+        <p id="warning" style={{visibility: `${this.state.warningVis}`}}></p>
         <p>
         With this application you can create an event count in YouTube videos. 
         </p>
@@ -102,7 +114,7 @@ class VideoBcg extends Component {
       <h2>number of appearances:</h2> <p id="apperances">{this.state.shots}</p>
 	  <p>If the action happens too fast remember that you can use the clip's settings to slow it down.</p>
      <button id="count" onClick={this.handleShot}>+1</button>
-     <button id="count2" onClick={this.handleShot2}>-1 (my mistake)</button>
+     <button id="count2" onClick={this.handleShot2}>-1 (My bad)</button>
      </div>
     }
 	 </div></div>
@@ -255,7 +267,7 @@ h2 {
 #count {
     padding: 0.5rem;
          align-self: center;
-         background: rgba(255, 0, 0, 0.5);
+         background: rgba(0, 255, 0, 0.5);
          border: none;
          font-size: 3rem;
          text-transform: uppercase;
@@ -269,7 +281,7 @@ h2 {
 #count2 {
     
          align-self: center;
-         background: rgba(0, 255, 0, 0.5);
+         background: rgba(255, 000, 0, 0.5);
          border: none;
          font-size: 0.8rem;
          text-transform: uppercase;

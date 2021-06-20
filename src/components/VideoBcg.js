@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
+import Clock from "./Clock";
+
+
 
 class VideoBcg extends Component {
     state ={
@@ -19,6 +22,7 @@ class VideoBcg extends Component {
         this.setState({
             shots: this.state.shots + 1
         })
+        
     }
 
     handleShot2 = () => {
@@ -93,7 +97,7 @@ class VideoBcg extends Component {
         onChange={this.handleAdressChange}
         name="adress"
         value={this.state.adressInput}
-        placeholder="gun shots, f-words, kisses"
+        placeholder=""
         />
         <button id="makeCounter">Make {this.state.nameInput} counter</button>
         <p id="warning" style={{visibility: `${this.state.warningVis}`}}></p>
@@ -101,7 +105,7 @@ class VideoBcg extends Component {
         With this application you can create an event count in YouTube videos. 
         </p>
         <p>
-        You can count how many times John Wick fires his gun in the fight scene in the Museum (chapter two) or how many times in a scene from The Wire series the word Fuck is said.
+        You can count how many times John Wick fires his gun in the fight scene in the Museum (chapter two) or how many times in a scene from The Wire TV series the word 'Fuck' is said.
         </p>
 
     <p>
@@ -113,6 +117,7 @@ class VideoBcg extends Component {
 	  <h1>{this.state.nameInput} counter</h1>
       <h2>number of appearances:</h2> <p id="apperances">{this.state.shots}</p>
 	  <p>If the action happens too fast remember that you can use the clip's settings to slow it down.</p>
+      <Clock />
      <button id="count" onClick={this.handleShot}>+1</button>
      <button id="count2" onClick={this.handleShot2}>-1 (My bad)</button>
      </div>

@@ -12,23 +12,31 @@ class Clock extends Component {
   };
 
  
-
+  
 
 start = () => {
-    if (!this.state.running) {
+
+    if (this.state.running) {
+      clearInterval(this.stoper)
+      
+      this.setState({
+        running: false
+      })
+      console.log("actual running:", this.state.running);
+    }
+    else if (!this.state.running) {
         this.setState({
             running: true
         })
         const stoper = setInterval(()=> this.timer(), 10);
-    } else {
-        clearInterval(this.stoper);
-        this.setState({
-            running: false
-        })
-        
-    }
+    } 
 }
 
+stop = () => {
+  clearInterval(this.stoper);
+  
+  
+}
 
 
 timer = () => {

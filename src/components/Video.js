@@ -10,7 +10,10 @@ class Video extends Component {
       seconds: 0,
       stratStopBtn: "Start",
       started: true,
-      progress: 0
+      progress: 0,
+      duration: "",
+      shotsArray: [{time: 0}],
+      counter: 0
     };
 
     onStart = () => {
@@ -18,15 +21,18 @@ class Video extends Component {
     }
 
     start = () => {
-        
+       console.log("ddd");
+       this.setState({
+           running: true
+       })
         
     }
 
     pause = () => {
-        console.log("paused");
+        console.log("ppp");
         this.setState({
             running: false,
-            seconds: this.state.seconds,
+            
         })
         
     }
@@ -40,14 +46,39 @@ class Video extends Component {
 
     duration = (e)=>{
         console.log("duration", e);
+        this.setState({
+            duration: e
+        })
     }
 
     progress = (e)=>{
         console.log("progress", e.playedSeconds);
         this.setState({
-            progress: parseInt(e.playedSeconds),
+            progress: e.playedSeconds,
         })
     }
+
+    handleShot = () => {
+        if (!this.state.running) {
+            return;
+        } else {
+        console.log(this.state.running);
+        const shot = {
+            time: this.state.progress.toFixed(3),
+            
+        }
+        let tempArray = this.state.shotsArray;
+        this.setState({
+            shotsArray: [...tempArray, shot],
+            running: true
+        })
+        console.log("el.time", shot.time);
+        console.log(this.state.shotsArray);
+        }
+    }
+
+   
+
     render() {
         return (
             <VideoPageWrapper>
@@ -58,14 +89,29 @@ class Video extends Component {
                 height={"100%"}
                 onDuration={(e)=>this.duration(e)}
                 onProgress={(e)=>this.progress(e)}
-                onPause={(onPlay)=>this.start(onPlay)}
+                onPlay={this.start}
+                onPause={this.pause}
                 
                 url='https://www.youtube.com/watch?v=ysz5S6PUM-U' />
             </VideoWrapper>
 
             <div className="timeDisplay">
                 <h1>Actual Video Time (AVT)</h1>
-                <h2>{this.state.progress}</h2>
+                <h2>0:{this.state.progress.toFixed(0)} s</h2>
+                <h1>Video duration</h1>
+                <h2>{this.state.duration} s</h2>
+                <h1>Actual Shots Count:</h1>
+                <h2>{this.state.shotsArray.length}</h2>
+
+                <button id="count" onClick={this.handleShot}>+1</button>
+                
+                <div>
+                    {this.state.shotsArray.map(el=>{
+                        return(
+                            <div>{el.time}</div>
+                        )
+                    })}
+                </div>
             </div>
             </VideoPageWrapper>
         );
@@ -74,11 +120,15 @@ class Video extends Component {
 
 export const VideoPageWrapper = styled.div`
 display: flex;
-
+p{
+    color: white;
+}
 .timeDisplay {
     width: 20vw;
+    min-width: 250px;
     color: white;
     text-align: center;
+    background:black;
 }
 `;
 

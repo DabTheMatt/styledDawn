@@ -221,7 +221,7 @@ label {
          width: 5rem;
          color: white;
          font-weight: bold;
-         margin-top: 1rem;
+         
         
     }
 
@@ -281,7 +281,7 @@ h2 {
          width: 150px;
          color: white;
          font-weight: bold;
-         margin-top: 3rem;
+         
 }
 #count2 {
     

@@ -9,6 +9,7 @@ class Clock extends Component {
     hours: 0,
     minutes: 0,
     seconds: 0,
+    stratStopBtn: "Start"
   };
 
  
@@ -20,22 +21,18 @@ start = () => {
       clearInterval(this.stoper)
       
       this.setState({
-        running: false
+        running: false,
+        stratStopBtn: "Start"
       })
       console.log("actual running:", this.state.running);
     }
     else if (!this.state.running) {
         this.setState({
-            running: true
+            running: true,
+            stratStopBtn: "Stop"
         })
-        const stoper = setInterval(()=> this.timer(), 10);
+        this.stoper = setInterval(()=> this.timer(), 10);
     } 
-}
-
-stop = () => {
-  clearInterval(this.stoper);
-  
-  
 }
 
 
@@ -53,8 +50,8 @@ timer = () => {
           <div className="container">{this.state.hours}:</div>
           <div className="container">{this.state.minutes}:</div>
           <div className="container">{this.state.seconds}</div><br/>
-        <button onClick={this.start}>start</button>
-        <button onClick={this.stop}>stop</button>
+        <button onClick={this.start}>{this.state.stratStopBtn}</button>
+        
         </ClockWrapper>
         
       

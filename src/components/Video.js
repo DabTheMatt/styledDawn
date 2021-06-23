@@ -141,7 +141,19 @@ class Video extends Component {
 
   handleHome = () => {
     this.setState({
-      showVideo: false
+      showVideo: false,
+      progress: 0,
+      duration: 0,
+      greenBtn: "",
+      whiteBtn: "",
+      orangeBtn: "",
+      shotsArray: [],
+      greenArray: [],
+      whiteArray: [],
+      orangeArray: [],
+      greenShots: 0,
+      whiteShots: 0,
+      orangeShots: 0
     })
   }
 
@@ -183,7 +195,7 @@ class Video extends Component {
                     name="orangeInput"
                     placeholder="punches"
                     />
-                    <button>Send</button>
+                    <button className="send">Send</button>
                     </form>
                   </FormWrapper>
                 </div>
@@ -265,6 +277,7 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 3rem;
 }
 label {
   color: #ee9b00;
@@ -285,6 +298,24 @@ label {
   color: #ee9b00;
 }
 
+.send {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
+  font-size: 1.5rem;
+  width: 20%;
+  margin-top: 2rem;
+  background: #bb3e03;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.1s linear;
+}
+
+.send:hover {
+  background: #ae2012;
+  
+}
+
 .shortInput {
   width: 30%;
 }
@@ -295,14 +326,18 @@ input {
   width: 60%;
   font-size: 1.5rem;
   line-height: 2rem;
-  
+  text-align: center;
   border: 1px solid #0a9396;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  margin-bottom: 1rem;;
 }
 
 input::placeholder {
   font-family: 'Oswald', sans-serif;
   font-weight: 200;
   text-align: center;
+  opacity: 0.8;
 }
 
 
@@ -336,7 +371,7 @@ export const VideoPageWrapper = styled.div`
 
     button  {
       width: 60%;
-      height: 80px;
+      height: 70px;
       font-size: 2rem;
       font-weight: 500;
       font-family: 'Oswald', sans-serif;
@@ -490,7 +525,7 @@ export const GraphWrapper = styled.div`
     top: -88px;
     z-index: 3;
     display: inline-block;
-    opacity: 0.6;
+    opacity: 0.8;
     transition: 0.2s ;
   }
 

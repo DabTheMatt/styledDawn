@@ -17,7 +17,15 @@ class Video extends Component {
     shotSize: "",
     counter: 0,
     onAxisPositon: "",
-    order: ""
+    order: "",
+    greenShots: 0,
+    greenArray: [],
+    whiteShots: 0,
+    whiteArray: [],
+    orangeShots: 0,
+    orangeArray: [],
+    showVideo: false
+
   };
 
   onStart = () => {
@@ -61,7 +69,20 @@ class Video extends Component {
   };
 
   handleShot = (color, size) => {
+    switch (color) {
+      case "#0a9396":
+      this.setState({greenShots: this.state.greenShots + 1})
+      break;
 
+      case "#94d2bd":
+      this.setState({whiteShots: this.state.whiteShots + 1})
+      break;
+
+      case "#ee9b00":
+      this.setState({orangeShots: this.state.orangeShots + 1})
+      break;
+    }
+    
     if (!this.state.running) {
       return;
     } else {
@@ -74,9 +95,28 @@ class Video extends Component {
         shotSize: size
       };
       let tempArray = this.state.shotsArray;
+      let greenArray = this.state.shotsArray.filter((shot)=> {
+        return (
+          shot.shotColor === "#0a9396"
+        )
+      })
+      let whiteArray = this.state.shotsArray.filter((shot)=> {
+        return (
+          shot.shotColor === "#94d2bd"
+        )
+      })
+      let orangeArray = this.state.shotsArray.filter((shot)=> {
+        return (
+          shot.shotColor === "#ee9b00"
+        )
+      })
+      console.log("green", greenArray);
       this.setState({
         shotsArray: [...tempArray, shot],
         running: true,
+        greenArray: greenArray,
+        whiteArray: whiteArray,
+        orangeArray: orangeArray
       });
       console.log("el.time", shot.time);
       console.log(this.state.shotsArray);
@@ -88,6 +128,7 @@ class Video extends Component {
       <OuterWrapper>
         <VideoPageWrapper>
           <VideoWrapper>
+            {this.state.showVideo ? 
             <ReactPlayer
               controls={true}
               width={"auto"}
@@ -96,8 +137,28 @@ class Video extends Component {
               onProgress={(e) => this.progress(e)}
               onPlay={this.start}
               onPause={this.pause}
-              url="https://www.youtube.com/watch?v=G0QGi7_KWFE"
-            />
+              url="https://www.youtube.com/watch?v=sfR_HWMzgyc"
+            /> : <div><FormWrapper>
+                  <form>
+                    <label id="url">Paste YouTube URL</label>
+                    <input
+                    name="urlInput"
+                    placeholder="Paste URL"
+                    />
+                    <label id="greenInput">First Counter</label>
+                    <input
+                    name="urlInput"
+                    placeholder="Paste URL"
+                    />
+                    <label id="whiteInput">Second Counter</label>
+                    <input
+                    name="urlInput"
+                    placeholder="Paste URL"
+                    />
+                    </form>
+                  </FormWrapper>
+                </div>
+          }
             <GraphWrapper>
           <div className="graphBcg">
             <div className="graph">
@@ -127,21 +188,21 @@ class Video extends Component {
           </VideoWrapper>
 
           <div className="timeDisplay">
-            <h1>Actual Video Time (AVT)</h1>
+            <h1>Actual Video Time</h1>
             <h2 style={{color: "#ae2012"}}>{this.state.progress.toFixed(0)} s</h2>
             <h1>Video duration</h1>
             <h2>{this.state.duration} s</h2>
-            <h1>Actual Shots Count:</h1>
+            <h1>Total Events Count:</h1>
             <h2 style={{color: "#ee9b00"}}>{this.state.shotsArray.length}</h2>
 
             <button id="countGreen" onClick={(green, big)=>this.handleShot("#0a9396", "120px")}>
-              +1
+              {this.state.greenShots}
             </button>
             <button id="countWhite" onClick={(white, small)=>this.handleShot("#94d2bd", "80px")}>
-              +1
+            {this.state.whiteShots}
             </button>
             <button id="countOrange" onClick={(blue, medium)=>this.handleShot("#ee9b00", "100px")}>
-              +1
+            {this.state.orangeShots}
             </button>
             
 
@@ -156,6 +217,56 @@ class Video extends Component {
   }
 }
 
+export const FormWrapper = styled.div`
+height: 60vh;
+color: white;
+display:flex;
+  flex-direction: column;
+form {
+  height: 100%;
+  font-size: 1.5rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+label {
+  color: #ee9b00;
+}
+#url {
+  color: white;
+}
+
+#greenInput {
+  color: #0a9396;
+}
+
+#whiteInput {
+  color: #94d2bd;
+}
+
+#orangeInput {
+  color: #ee9b00;
+}
+
+input {
+  width: 60%;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  
+  border: 1px solid #0a9396;
+}
+
+input::placeholder {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 200;
+  text-align: center;
+}
+
+
+
+`;
+
 export const OuterWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -167,14 +278,19 @@ export const VideoPageWrapper = styled.div`
     color: white;
   }
   .timeDisplay {
-    width: 20vw;
+    width: auto;
     height: 100vh;
-    min-width: 250px;
     
     color: white;
     text-align: center;
     background: black;
     font-weight: 200;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    
 
     button  {
       width: 60%;
@@ -213,15 +329,22 @@ export const VideoPageWrapper = styled.div`
     }
 
     .info {
-      width: 80%;
+      width: 60%;
       display: flex;
       align-items: center;
       justify-content: flex-end;
     }
 
     p {
+      width: ;
       text-align: right;
     }
+@media (max-width: 1000px) {
+  h1 {
+    font-size: 1rem;
+  }
+}
+
   }
 `;
 

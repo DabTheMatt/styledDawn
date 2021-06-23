@@ -20,11 +20,15 @@ class Video extends Component {
     order: "",
     greenShots: 0,
     greenArray: [],
+    greenBtn: "",
     whiteShots: 0,
     whiteArray: [],
+    whiteBtn: "",
     orangeShots: 0,
     orangeArray: [],
-    showVideo: false
+    orangeBtn: "",
+    showVideo: false,
+    youtubeUrl: ""
 
   };
 
@@ -123,12 +127,31 @@ class Video extends Component {
     }
   };
 
+  handleSend = (e) => {
+    e.preventDefault();
+    console.log(e.target.urlInput.value);
+    this.setState({
+      youtubeUrl: e.target.urlInput.value,
+      showVideo: true,
+      greenBtn: e.target.greenInput.value,
+      whiteBtn: e.target.whiteInput.value,
+      orangeBtn: e.target.orangeInput.value
+    })
+  }
+
+  handleHome = () => {
+    this.setState({
+      showVideo: false
+    })
+  }
+
   render() {
     return (
       <OuterWrapper>
         <VideoPageWrapper>
           <VideoWrapper>
             {this.state.showVideo ? 
+            
             <ReactPlayer
               controls={true}
               width={"auto"}
@@ -137,24 +160,30 @@ class Video extends Component {
               onProgress={(e) => this.progress(e)}
               onPlay={this.start}
               onPause={this.pause}
-              url="https://www.youtube.com/watch?v=sfR_HWMzgyc"
+              url={this.state.youtubeUrl}
             /> : <div><FormWrapper>
-                  <form>
+                  <form onSubmit={(e)=>this.handleSend(e)}>
                     <label id="url">Paste YouTube URL</label>
-                    <input
+                    <input className="longInput"
                     name="urlInput"
                     placeholder="Paste URL"
                     />
                     <label id="greenInput">First Counter</label>
-                    <input
-                    name="urlInput"
-                    placeholder="Paste URL"
+                    <input className="shortInput"
+                    name="greenInput"
+                    placeholder="shots"
                     />
                     <label id="whiteInput">Second Counter</label>
-                    <input
-                    name="urlInput"
-                    placeholder="Paste URL"
+                    <input className="shortInput"
+                    name="whiteInput"
+                    placeholder="kisses"
                     />
+                    <label id="orangeInput">Third Counter</label>
+                    <input className="shortInput"
+                    name="orangeInput"
+                    placeholder="punches"
+                    />
+                    <button>Send</button>
                     </form>
                   </FormWrapper>
                 </div>
@@ -196,18 +225,25 @@ class Video extends Component {
             <h2 style={{color: "#ee9b00"}}>{this.state.shotsArray.length}</h2>
 
             <button id="countGreen" onClick={(green, big)=>this.handleShot("#0a9396", "120px")}>
-              {this.state.greenShots}
+              <div className="btnTitle">{this.state.greenBtn}</div>
+              <div className="btnValue">{this.state.greenShots}</div>
             </button>
             <button id="countWhite" onClick={(white, small)=>this.handleShot("#94d2bd", "80px")}>
-            {this.state.whiteShots}
+            <div className="btnTitle">{this.state.whiteBtn}</div>
+              <div className="btnValue">{this.state.whiteShots}</div>
             </button>
             <button id="countOrange" onClick={(blue, medium)=>this.handleShot("#ee9b00", "100px")}>
-            {this.state.orangeShots}
+            <div className="btnTitle">{this.state.orangeBtn}</div>
+              <div className="btnValue">{this.state.orangeShots}</div>
             </button>
             
 
             <div className="info">
               <p>If the action happens too fast remember that you can use the clip's settings to slow it down.</p>
+
+              <button id="home" onClick={this.handleHome}>
+              &#60;&#60; Home
+            </button>
             </div>
           </div>
         </VideoPageWrapper>
@@ -249,6 +285,12 @@ label {
   color: #ee9b00;
 }
 
+.shortInput {
+  width: 30%;
+}
+.longInput {
+  margin-bottom: 2rem;
+}
 input {
   width: 60%;
   font-size: 1.5rem;
@@ -301,11 +343,21 @@ export const VideoPageWrapper = styled.div`
       opacity: 0.8;
       border: none;
       margin: 0.1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     #countGreen {
       background: #0a9396;
       opacity: 0.6;
+      
+    }
+
+    .btnTitle {
+      font-size: 1rem;
     }
 
     #countWhite {
@@ -315,6 +367,18 @@ export const VideoPageWrapper = styled.div`
     #countOrange {
       background: #ee9b00;
     }
+
+    #home {
+      font-size: 1rem;
+      height: 2rem;
+      width: 100%;
+      transition: 0.1s;
+    }
+
+    #home:hover {
+      background: #94d2bd;
+    }
+
 
     h1, h2, h3 {
       font-weight: 200;
@@ -326,6 +390,7 @@ export const VideoPageWrapper = styled.div`
 
     h2 {
       font-weight: 500;
+      line-height: 1rem;
     }
 
     .info {
@@ -333,10 +398,14 @@ export const VideoPageWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      flex-direction: column;
+
+       
+
     }
 
     p {
-      width: ;
+      
       text-align: right;
     }
 @media (max-width: 1000px) {

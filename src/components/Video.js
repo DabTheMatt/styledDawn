@@ -28,7 +28,8 @@ class Video extends Component {
     orangeArray: [],
     orangeBtn: "",
     showVideo: false,
-    youtubeUrl: ""
+    youtubeUrl: "",
+    time: "00:00:00"
 
   };
 
@@ -54,6 +55,7 @@ class Video extends Component {
     this.setState({
       seconds: this.state.seconds + 1,
     });
+    this.displayTime();
   };
 
   duration = (e) => {
@@ -66,11 +68,39 @@ class Video extends Component {
   progress = (e) => {
     console.log("progress", e.playedSeconds);
     let onAxis = (this.state.progress * 100) / this.state.duration;
+    var pad = function(num, size) { return ('000' + num).slice(size * -1); },
+    time = parseFloat(e.playedSeconds).toFixed(3),
+    hours = Math.floor(time / 60 / 60),
+    minutes = Math.floor(time / 60) % 60,
+    seconds = Math.floor(time - minutes * 60)
     this.setState({
       progress: e.playedSeconds,
       onAxisPositon: onAxis,
+      time: ( pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2))
     });
+
   };
+
+  
+
+displayTime = () => {
+  let time = this.state.progress;
+  if (this.state.running === true) {
+    if (this.state.seconds === 60) {
+      this.setState({
+        minutes: this.state.minutes + 1,
+        seconds: 0
+      })
+    }
+    if (this.state.minutes === 60) {
+      this.setState({
+        hours: this.state.hours + 1,
+        minutes: 0,
+        seconds: 0
+      })
+    }
+  }
+}
 
   handleShot = (color, size) => {
     switch (color) {
@@ -153,7 +183,8 @@ class Video extends Component {
       orangeArray: [],
       greenShots: 0,
       whiteShots: 0,
-      orangeShots: 0
+      orangeShots: 0,
+      time: 0
     })
   }
 
@@ -174,7 +205,10 @@ class Video extends Component {
               onPause={this.pause}
               url={this.state.youtubeUrl}
             /> : <div><FormWrapper>
+              
                   <form onSubmit={(e)=>this.handleSend(e)}>
+                    <h1 className="title">Moovielyzer</h1>
+                    <h2 className="subTitle">Event Instance Analyzer</h2>
                     <label id="url">Paste YouTube URL</label>
                     <input className="longInput"
                     name="urlInput"
@@ -219,7 +253,7 @@ class Video extends Component {
                   style={{ left: `${this.state.onAxisPositon+0.2}%` }}
                 >
                   <div className="timeOnAxis">
-                    {this.state.progress.toFixed(0)} s
+                    {this.state.time}
                   </div>
                 </div>
               </div>
@@ -230,23 +264,27 @@ class Video extends Component {
 
           <div className="timeDisplay">
             <h1>Actual Video Time</h1>
-            <h2 style={{color: "#ae2012"}}>{this.state.progress.toFixed(0)} s</h2>
+            <h2 className="showTime"> {this.state.time}</h2>
+            
+            <h3 className="showTime" >{this.state.progress.toFixed(0)}s</h3>
             <h1>Video duration</h1>
-            <h2>{this.state.duration} s</h2>
+            <h2 className="showTime">{this.state.duration}s</h2><br></br>
+            <h3>left</h3>
+            <h3 className="showTime">{parseInt(this.state.duration-this.state.progress)}s</h3>
             <h1>Total Events Count:</h1>
-            <h2 style={{color: "#ee9b00"}}>{this.state.shotsArray.length}</h2>
+            <h2 className="showTime" style={{color: "#ee9b00"}}>{this.state.shotsArray.length}</h2>
 
             <button id="countGreen" onClick={(green, big)=>this.handleShot("#0a9396", "120px")}>
               <div className="btnTitle">{this.state.greenBtn}</div>
-              <div className="btnValue">{this.state.greenShots}</div>
+              <div className="btnValue showTime">{this.state.greenShots}</div>
             </button>
             <button id="countWhite" onClick={(white, small)=>this.handleShot("#94d2bd", "80px")}>
             <div className="btnTitle">{this.state.whiteBtn}</div>
-              <div className="btnValue">{this.state.whiteShots}</div>
+              <div className="btnValue showTime">{this.state.whiteShots}</div>
             </button>
             <button id="countOrange" onClick={(blue, medium)=>this.handleShot("#ee9b00", "100px")}>
             <div className="btnTitle">{this.state.orangeBtn}</div>
-              <div className="btnValue">{this.state.orangeShots}</div>
+              <div className="btnValue showTime">{this.state.orangeShots}</div>
             </button>
             
 
@@ -277,7 +315,7 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 label {
   color: #ee9b00;
@@ -330,7 +368,19 @@ input {
   border: 1px solid #0a9396;
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
-  margin-bottom: 1rem;;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-weight: 400;
+  letter-spacing: 0.4rem;
+}
+
+.subTitle {
+  font-size: 1.5rem;
+  font-weight: 200;
+  margin-top: -2rem;
+  margin-bottom: 2rem;
 }
 
 input::placeholder {
@@ -354,6 +404,11 @@ export const VideoPageWrapper = styled.div`
   p {
     color: white;
   }
+  .showTime {
+    font-family: 'Space Mono', monospace;
+    
+  }
+
   .timeDisplay {
     width: auto;
     height: 100vh;
@@ -426,6 +481,11 @@ export const VideoPageWrapper = styled.div`
     h2 {
       font-weight: 500;
       line-height: 1rem;
+      margin-top: -0.3rem;
+    }
+
+    h3 {
+      margin-top: -1rem;
     }
 
     .info {

@@ -28,10 +28,13 @@ class Video extends Component {
     orangeArray: [],
     orangeBtn: "",
     showVideo: false,
+    showClass: "hidden",
     youtubeUrl: "",
     time: "00:00:00"
 
   };
+
+
 
   onStart = () => {
     console.log("started");
@@ -163,6 +166,7 @@ displayTime = () => {
     this.setState({
       youtubeUrl: e.target.urlInput.value,
       showVideo: true,
+      showClass: "visible",
       greenBtn: e.target.greenInput.value,
       whiteBtn: e.target.whiteInput.value,
       orangeBtn: e.target.orangeInput.value
@@ -184,7 +188,8 @@ displayTime = () => {
       greenShots: 0,
       whiteShots: 0,
       orangeShots: 0,
-      time: 0
+      time: 0,
+      showClass: "hidden"
     })
   }
 
@@ -229,13 +234,15 @@ displayTime = () => {
                     name="orangeInput"
                     placeholder="punches"
                     />
-                    <button className="send">Send</button>
+                    <button className="send">
+let's analyze</button>
                     </form>
                   </FormWrapper>
                 </div>
           }
             <GraphWrapper>
-          <div className="graphBcg">
+              
+          <div className="graphBcg" style={{visibility: `${this.state.showClass}`}}>
             <div className="graph">
               <div className="axisX">
                 <div className="startTime">0</div>
@@ -259,6 +266,7 @@ displayTime = () => {
               </div>
             </div>
           </div>
+          
         </GraphWrapper>
           </VideoWrapper>
 
@@ -288,7 +296,7 @@ displayTime = () => {
             </button>
             
 
-            <div className="info">
+            <div className="info" style={{visibility: `${this.state.showClass}`}}>
               <p>If the action happens too fast remember that you can use the clip's settings to slow it down.</p>
 
               <button id="home" onClick={this.handleHome}>
